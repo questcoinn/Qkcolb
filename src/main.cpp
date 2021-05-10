@@ -6,7 +6,7 @@
 #include "Block.hpp"
 
 int main() {
-    qb::BlockChain bc;
+    qb::BlockChain bc(16);
 
     bc.addBlock("Send 1 BTC to Ivan");
     bc.addBlock("Send 2 more BTC to Ivan");

@@ -5,32 +5,36 @@
 #include <list>
 #include <string>
 
+#include "types.hpp"
+
 namespace qb {
     class Block {
     public:
-        Block(std::string data, std::string prevBlockHash);
+        Block(std::string data, std::string prevBlockHash, int64 targetBit);
         ~Block() = default;
 
-#ifdef DEBUG
     public:
+        bool isValid();
+#ifdef DEBUG
         void print();
 #endif
 
     private:
-        void setHash();
+        void setHash(int64 targetBit);
 
     private:
         std::chrono::_V2::system_clock::time_point timestamp;
         std::string data;
         std::string prevBlockHash;
         std::string hash;
+        int64 nonce;
 
         friend class BlockChain;
     };
 
     class BlockChain {
     public:
-        BlockChain();
+        BlockChain(int64 targetBit);
         ~BlockChain() = default;
 
     public:
@@ -44,6 +48,7 @@ namespace qb {
     private:
         std::list<Block> list;
         std::list<Block>::iterator iterator;
+        int64 targetBit;
     };
 }
 
